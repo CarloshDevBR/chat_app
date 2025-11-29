@@ -4,7 +4,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.chatapp.presentation.profile.ProfileFragment
+import com.example.chatapp.presentation.home.subfragments.ChatListFragment
 
 class TabsHomeAdapter(
     fragmentManager: FragmentManager,
@@ -14,9 +14,9 @@ class TabsHomeAdapter(
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            POSITION_CONVERSATION -> ProfileFragment()
-            POSITION_CONTACTS -> ProfileFragment()
-            else -> ProfileFragment()
+            POSITION_CONVERSATION -> ChatListFragment()
+            POSITION_CONTACTS -> ChatListFragment()
+            else -> ChatListFragment()
         }
     }
 

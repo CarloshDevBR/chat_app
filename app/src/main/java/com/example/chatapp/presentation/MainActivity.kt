@@ -1,4 +1,4 @@
-package com.example.chatapp.presentation.main
+package com.example.chatapp.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +9,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import com.example.chatapp.R
 import com.example.chatapp.databinding.ActivityMainBinding
-import com.google.android.material.tabs.TabLayoutMediator
+import com.example.chatapp.presentation.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
@@ -33,9 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun observers() {
         viewModel.isLogged.observe(this) { state ->
-            if (state) {
-                goToHome()
-            }
+            if (state) goToHome()
         }
     }
 

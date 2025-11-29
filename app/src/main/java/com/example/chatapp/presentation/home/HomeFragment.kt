@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.chatapp.R
@@ -39,7 +40,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupListeners()
         setupStateObserver()
         setupEventObserver()
         viewModel.getUser()
@@ -70,17 +70,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setupListeners() = with(binding) {
-        includeTabsHome.swipeRefreshLayout.setOnRefreshListener {
-            lifecycleScope.launch {
-                // TODO - remover
-                delay(1000)
-                binding.includeTabsHome.swipeRefreshLayout.isRefreshing = IS_REFRESHING
-            }
-        }
-    }
-
-    private fun setupTabs(tabs: Map<Int, String>) = with(binding.includeTabsHome) {
+    private fun setupTabs(tabs: Map<Int, String>) = with(binding) {
         val adapter = TabsHomeAdapter(childFragmentManager, lifecycle)
 
         viewPager2.adapter = adapter
@@ -100,22 +90,33 @@ class HomeFragment : Fragment() {
         setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.profile -> {
-                    viewModel.navigateToProfile()
+                    openDialogLogout()
                     MENU_CLICK_DEFAULT
                 }
                 R.id.logout -> {
                     viewModel.logout()
                     MENU_CLICK_DEFAULT
                 }
-
                 else -> MENU_CLICK_DEFAULT
             }
         }
     }
 
+    private fun openDialogLogout() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(R.string.dialog_title_logout)
+            .setPositiveButton(R.string.exit) { dialog, _ ->
+                viewModel.navigateToProfile()
+                dialog.dismiss()
+            }
+            .setNegativeButton(R.string.cancel) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
     private companion object {
         const val IS_USER_INPUT_ENABLED = false
-        const val IS_REFRESHING = false
         const val MENU_CLICK_DEFAULT = true
     }
 }

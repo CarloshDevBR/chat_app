@@ -27,4 +27,7 @@
     <string name="item_title_logout">Sair</string>
     <string name="tab_conversations">Conversas</string>
     <string name="tab_contacts">Contatos</string>
+    <string name="dialog_title_logout">Deseja mesmo sair?</string>
+    <string name="exit">Sair</string>
+    <string name="cancel">Cancelar</string>
 </resources>

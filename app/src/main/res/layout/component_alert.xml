@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container_alert"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,7 +11,7 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="@dimen/spacing_medium"
         android:layout_height="@dimen/spacing_medium"
-        android:layout_marginRight="@dimen/spacing_small"
+        android:layout_marginEnd="@dimen/spacing_small"
         android:src="@drawable/ic_warning"
         app:tint="@color/error_400" />
 
@@ -20,7 +21,7 @@
         android:layout_height="@dimen/spacing_small_m"
         android:layout_gravity="center"
         android:lineHeight="@dimen/typography_high"
-        android:text="E-mail ou senha inválidos"
-        android:textColor="@color/error_400" />
+        android:textColor="@color/error_400"
+        tools:text="@string/txt_invalid_credentials" />
 
 </LinearLayout>

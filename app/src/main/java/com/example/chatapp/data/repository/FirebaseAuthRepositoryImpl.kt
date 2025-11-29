@@ -1,5 +1,7 @@
 package com.example.chatapp.data.repository
 
+import com.example.chatapp.data.mapper.toMapperSignInUserResponse
+import com.example.chatapp.data.mapper.toMapperSignUpUserResponse
 import com.example.chatapp.data.model.response.UserResponse
 import com.example.chatapp.domain.errors.AuthError
 import com.example.chatapp.domain.repository.FireStoreAuthRepository
@@ -9,7 +11,6 @@ import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -27,12 +28,7 @@ class FirebaseAuthRepositoryImpl(
             val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
             val firebaseUser = result.user ?: throw AuthError.UnknownError
 
-            val userModel = toMapperSignInUserResponse(
-                firebaseUser = firebaseUser,
-                password = password
-            )
-
-            emit(userModel)
+            emit(firebaseUser.toMapperSignInUserResponse(password = password))
         } catch (e: FirebaseException) {
             throw handlerError(e)
         }
@@ -53,8 +49,7 @@ class FirebaseAuthRepositoryImpl(
 
             firebaseUser.updateProfile(profileUpdates).await()
 
-            val userModel = toMapperSignUpUserResponse(
-                firebaseUser = firebaseUser,
+            val userModel = firebaseUser.toMapperSignUpUserResponse(
                 name = name,
                 password = password
             )
@@ -76,29 +71,6 @@ class FirebaseAuthRepositoryImpl(
             throw e
         }
     }
-
-    private fun toMapperSignInUserResponse(
-        firebaseUser: FirebaseUser,
-        password: String
-    ) = UserResponse(
-        id = firebaseUser.uid,
-        name = firebaseUser.displayName.orEmpty(),
-        email = firebaseUser.email.orEmpty(),
-        password = password,
-        image = ""
-    )
-
-    private fun toMapperSignUpUserResponse(
-        firebaseUser: FirebaseUser,
-        name: String,
-        password: String
-    ) = UserResponse(
-        id = firebaseUser.uid,
-        name = firebaseUser.displayName ?: name,
-        email = firebaseUser.email.orEmpty(),
-        password = password,
-        image = ""
-    )
 
     private fun handlerError(exception: FirebaseException) = when (exception) {
         is FirebaseAuthUserCollisionException -> AuthError.EmailAlreadyInUse

@@ -4,7 +4,6 @@
     <item
         android:id="@+id/menu"
         android:icon="@drawable/ic_dots_vertical"
-        android:iconTint="@color/white"
         android:title=""
         app:showAsAction="ifRoom">
         <menu>

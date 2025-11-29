@@ -29,7 +29,7 @@ import com.example.chatapp.domain.usecase.user.SaveUserUseCaseImpl
 import com.example.chatapp.presentation.signin.SignInViewModel
 import com.example.chatapp.presentation.signup.SignUpViewModel
 import com.example.chatapp.presentation.home.HomeViewModel
-import com.example.chatapp.presentation.main.MainViewModel
+import com.example.chatapp.presentation.MainViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import org.koin.core.module.Module

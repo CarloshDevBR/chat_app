@@ -14,7 +14,7 @@
         android:theme="@style/Theme.ChatApp.Splash"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.main.MainActivity"
+            android:name=".presentation.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.ChatApp.Splash">
             <intent-filter android:autoVerify="true">

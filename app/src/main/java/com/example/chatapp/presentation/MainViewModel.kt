@@ -1,4 +1,4 @@
-package com.example.chatapp.presentation.main
+package com.example.chatapp.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,8 +15,8 @@ class MainViewModel(
 
     fun getUser() {
         viewModelScope.launch {
-            getUserUseCase.invoke().collect {
-                _isLogged.value = it?.id?.isNotBlank()
+            getUserUseCase.invoke().collect { user ->
+                _isLogged.value = user != null
             }
         }
     }

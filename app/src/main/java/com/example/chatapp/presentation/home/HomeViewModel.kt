@@ -7,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.chatapp.R
 import com.example.chatapp.core.livedata.single.SingleLiveEvent
 import com.example.chatapp.core.resourceprovider.ResourceProvider
+import com.example.chatapp.data.model.response.ChatResponse
+import com.example.chatapp.data.model.response.ContactsResponse
 import com.example.chatapp.data.model.response.UserResponse
 import com.example.chatapp.domain.usecase.user.GetUserUseCase
 import com.example.chatapp.domain.usecase.user.LogoutUserUseCase
@@ -27,6 +29,12 @@ class HomeViewModel(
 
     private val _user = MutableLiveData<UserResponse>()
     val user: LiveData<UserResponse> get() = _user
+
+    private val _chats = MutableLiveData<List<ChatResponse>>()
+    val chats: LiveData<List<ChatResponse>> = _chats
+
+    private val _contacts = MutableLiveData<List<ContactsResponse>>()
+    val contacts: LiveData<List<ContactsResponse>> = _contacts
 
     init {
         setupTabsScreen()
@@ -53,6 +61,10 @@ class HomeViewModel(
                 }
         }
     }
+
+    fun getChats(): List<ChatResponse> = emptyList()
+
+    fun getContacts(): List<ContactsResponse> = emptyList()
 
     fun navigateToProfile() {
         _event.value = Event.NavigateToProfile
