@@ -90,10 +90,10 @@ class ApplicationModules {
     }
 
     private fun Module.factoryBusiness() {
-        factory<SignInBusiness> {
+        single<SignInBusiness> {
             SignInBusinessImpl()
         }
-        factory<SignUpBusiness> {
+        single<SignUpBusiness> {
             SignUpBusinessImpl()
         }
     }
