@@ -1,4 +1,4 @@
-package com.example.chatapp.core.resourceprovider
+package com.example.chatapp.infra.resourceprovider
 
 interface ResourceProvider {
     fun getString(resId: Int): String

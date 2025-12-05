@@ -1,8 +1,8 @@
 package com.example.chatapp.domain.usecase.auth
 
 import com.example.chatapp.data.model.response.UserResponse
-import com.example.chatapp.domain.repository.FirebaseAuthRepository
-import com.google.firebase.auth.AuthResult
+import com.example.chatapp.data.datasource.remote.FirebaseAuthDataSource
+import com.example.chatapp.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.Flow
 
 interface SignInUseCase {
@@ -12,7 +12,7 @@ interface SignInUseCase {
 }
 
 class SignInUseCaseImpl(
-    private val repository: FirebaseAuthRepository
+    private val repository: AuthRepository
 ) : SignInUseCase {
     override suspend fun invoke(params: SignInUseCase.Params): Flow<UserResponse> {
         return repository.signIn(params.email, params.password)

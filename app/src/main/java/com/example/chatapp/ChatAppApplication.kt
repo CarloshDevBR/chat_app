@@ -1,7 +1,7 @@
 package com.example.chatapp
 
 import android.app.Application
-import com.example.chatapp.core.di.ApplicationModules
+import com.example.chatapp.infra.di.ApplicationModules
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

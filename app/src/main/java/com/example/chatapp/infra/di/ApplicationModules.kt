@@ -1,18 +1,20 @@
-package com.example.chatapp.core.di
+package com.example.chatapp.infra.di
 
-import com.example.chatapp.core.resourceprovider.ResourceProvider
-import com.example.chatapp.core.resourceprovider.ResourceProviderImpl
-import com.example.chatapp.data.datasource.SharedPreferencesDataSource
-import com.example.chatapp.data.datasource.SharedPreferencesDataSourceImpl
-import com.example.chatapp.data.repository.FireStoreAuthRepositoryImpl
-import com.example.chatapp.data.repository.FirebaseAuthRepositoryImpl
+import com.example.chatapp.infra.resourceprovider.ResourceProvider
+import com.example.chatapp.infra.resourceprovider.ResourceProviderImpl
+import com.example.chatapp.data.datasource.local.SharedPreferencesDataSource
+import com.example.chatapp.infra.datasource.local.SharedPreferencesDataSourceImpl
+import com.example.chatapp.infra.datasource.remote.FireStoreAuthDataSourceImpl
+import com.example.chatapp.infra.datasource.remote.FirebaseAuthDataSourceImpl
 import com.example.chatapp.data.repository.UserPreferencesRepositoryImpl
 import com.example.chatapp.domain.business.SignInBusiness
 import com.example.chatapp.domain.business.SignInBusinessImpl
 import com.example.chatapp.domain.business.SignUpBusiness
 import com.example.chatapp.domain.business.SignUpBusinessImpl
-import com.example.chatapp.domain.repository.FireStoreAuthRepository
-import com.example.chatapp.domain.repository.FirebaseAuthRepository
+import com.example.chatapp.data.datasource.remote.FireStoreAuthDataSource
+import com.example.chatapp.data.datasource.remote.FirebaseAuthDataSource
+import com.example.chatapp.data.repository.AuthRepositoryImpl
+import com.example.chatapp.domain.repository.AuthRepository
 import com.example.chatapp.domain.repository.UserPreferencesRepository
 import com.example.chatapp.domain.usecase.auth.SignInUseCase
 import com.example.chatapp.domain.usecase.auth.SignInUseCaseImpl
@@ -40,46 +42,17 @@ class ApplicationModules {
     fun load() = listOf(
         module {
             factoryInfra()
-            factoryAuth()
-            factoryDataSource()
             factoryViewModel()
             factoryBusiness()
             factoryUseCase()
+            factoryRepository()
+            factoryDataSource()
         }
     )
 
     private fun Module.factoryInfra() {
         single<ResourceProvider> {
             ResourceProviderImpl(
-                context = get()
-            )
-        }
-    }
-
-    private fun Module.factoryAuth() {
-        single { FirebaseAuth.getInstance() }
-        single { FirebaseFirestore.getInstance() }
-        single<UserPreferencesRepository> {
-            UserPreferencesRepositoryImpl(
-                dataSource = get()
-            )
-        }
-        single<FirebaseAuthRepository> {
-            FirebaseAuthRepositoryImpl(
-                firebaseAuth = get(),
-                fireStoreAuthRepository = get()
-            )
-        }
-        single<FireStoreAuthRepository> {
-            FireStoreAuthRepositoryImpl(
-                firestore = get()
-            )
-        }
-    }
-
-    private fun Module.factoryDataSource() {
-        single<SharedPreferencesDataSource> {
-            SharedPreferencesDataSourceImpl(
                 context = get()
             )
         }
@@ -117,10 +90,10 @@ class ApplicationModules {
     }
 
     private fun Module.factoryBusiness() {
-        single<SignInBusiness> {
+        factory<SignInBusiness> {
             SignInBusinessImpl()
         }
-        single<SignUpBusiness> {
+        factory<SignUpBusiness> {
             SignUpBusinessImpl()
         }
     }
@@ -148,12 +121,46 @@ class ApplicationModules {
         }
         single<SignUpUseCase> {
             SignUpUseCaseImpl(
-                firebaseRepository = get(),
+                repository = get(),
             )
         }
         single<SignOutUseCase> {
             SignOutUseCaseImpl(
                 repository = get()
+            )
+        }
+    }
+
+    private fun Module.factoryRepository() {
+        single<AuthRepository> {
+            AuthRepositoryImpl(
+                firebase = get()
+            )
+        }
+        single<UserPreferencesRepository> {
+            UserPreferencesRepositoryImpl(
+                dataSource = get()
+            )
+        }
+    }
+
+    private fun Module.factoryDataSource() {
+        single { FirebaseAuth.getInstance() }
+        single { FirebaseFirestore.getInstance() }
+        single<FirebaseAuthDataSource> {
+            FirebaseAuthDataSourceImpl(
+                firebaseAuth = get(),
+                fireStoreAuthDataSource = get()
+            )
+        }
+        single<FireStoreAuthDataSource> {
+            FireStoreAuthDataSourceImpl(
+                firestore = get()
+            )
+        }
+        single<SharedPreferencesDataSource> {
+            SharedPreferencesDataSourceImpl(
+                context = get()
             )
         }
     }

@@ -1,4 +1,4 @@
-package com.example.chatapp.core.livedata.single
+package com.example.chatapp.infra.livedata.single
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner

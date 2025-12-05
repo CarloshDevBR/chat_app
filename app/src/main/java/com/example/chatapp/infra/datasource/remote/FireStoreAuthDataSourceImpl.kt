@@ -1,14 +1,14 @@
-package com.example.chatapp.data.repository
+package com.example.chatapp.infra.datasource.remote
 
-import com.example.chatapp.data.model.response.UserResponse
-import com.example.chatapp.domain.repository.FireStoreAuthRepository
+import com.example.chatapp.data.datasource.remote.FireStoreAuthDataSource
+import com.example.chatapp.data.model.request.RegisterUserRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
-class FireStoreAuthRepositoryImpl(
+class FireStoreAuthDataSourceImpl(
     private val firestore: FirebaseFirestore
-) : FireStoreAuthRepository {
-    override suspend fun saveUser(user: UserResponse) {
+) : FireStoreAuthDataSource {
+    override suspend fun saveUser(user: RegisterUserRequest) {
         firestore
             .collection(COLLECTION)
             .document(user.id)

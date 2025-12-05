@@ -1,4 +1,4 @@
-package com.example.chatapp.core.resourceprovider
+package com.example.chatapp.infra.resourceprovider
 
 import android.content.Context
 

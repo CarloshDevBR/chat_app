@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.chatapp.R
-import com.example.chatapp.core.livedata.single.SingleLiveEvent
-import com.example.chatapp.core.resourceprovider.ResourceProvider
+import com.example.chatapp.infra.livedata.single.SingleLiveEvent
+import com.example.chatapp.infra.resourceprovider.ResourceProvider
 import com.example.chatapp.data.model.response.UserResponse
 import com.example.chatapp.domain.business.SignUpBusiness
 import com.example.chatapp.domain.errors.AuthError

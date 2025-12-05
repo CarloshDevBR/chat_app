@@ -1,7 +1,8 @@
-package com.example.chatapp.data.datasource
+package com.example.chatapp.infra.datasource.local
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.chatapp.data.datasource.local.SharedPreferencesDataSource
 import com.example.chatapp.data.model.response.UserResponse
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
