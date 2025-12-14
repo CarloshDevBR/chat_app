@@ -9,7 +9,7 @@
     </style>
 
     <style name="Theme.ChatApp.Splash" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_logo_white</item>
         <item name="windowSplashScreenAnimationDuration">1000</item>
         <item name="windowSplashScreenBackground">@color/primary_200</item>
         <item name="postSplashScreenTheme">@style/Base.Theme.ChatApp</item>

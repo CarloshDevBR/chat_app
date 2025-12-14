@@ -30,12 +30,6 @@ class HomeViewModel(
     private val _user = MutableLiveData<UserResponse>()
     val user: LiveData<UserResponse> get() = _user
 
-    private val _chats = MutableLiveData<List<ChatResponse>>()
-    val chats: LiveData<List<ChatResponse>> = _chats
-
-    private val _contacts = MutableLiveData<List<ContactsResponse>>()
-    val contacts: LiveData<List<ContactsResponse>> = _contacts
-
     init {
         setupTabsScreen()
     }
@@ -61,10 +55,6 @@ class HomeViewModel(
                 }
         }
     }
-
-    fun getChats(): List<ChatResponse> = emptyList()
-
-    fun getContacts(): List<ContactsResponse> = emptyList()
 
     fun navigateToProfile() {
         _event.value = Event.NavigateToProfile

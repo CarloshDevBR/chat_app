@@ -9,7 +9,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import com.example.chatapp.R
 import com.example.chatapp.databinding.ActivityMainBinding
-import com.example.chatapp.presentation.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.activityViewModels
 import com.example.chatapp.R
 import com.example.chatapp.data.model.response.UserResponse
 import com.example.chatapp.databinding.FragmentHomeBinding
@@ -15,14 +15,14 @@ import com.example.chatapp.presentation.home.nav.navigateToProfile
 import com.example.chatapp.presentation.home.nav.navigateToSignIn
 import com.example.chatapp.presentation.home.state.HomeEvent
 import com.example.chatapp.presentation.home.state.HomeState
+import com.example.chatapp.presentation.sharedviewmodels.HomeListsViewModel
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private val sharedListHomeViewModel: HomeListsViewModel by activityViewModels()
     private val viewModel: HomeViewModel by viewModel()
 
     override fun onCreateView(
@@ -54,6 +54,8 @@ class HomeFragment : Fragment() {
         viewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is HomeState.Tabs -> setupTabs(state.tabs)
+                is HomeState.Chats -> sharedListHomeViewModel.setCharts(state.list)
+                is HomeState.Contacts -> sharedListHomeViewModel.setContacts(state.list)
                 is HomeState.LoggedOut -> navigateToSignIn()
             }
         }
